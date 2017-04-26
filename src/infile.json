@@ -1,0 +1,84 @@
+{
+  "_comment": "Pegad el JSON en esta web: http://www.cleancss.com/json-editor/",
+
+  "subnet_A": {
+    "ID":       "0x01",
+    "NETaddr":  "192.168.1.0",
+    "mask":     "255.255.255.0",
+
+    "host": {
+      "A": {
+        "gateway":  "192.168.1.1",
+        "IPaddr":   "192.168.1.2",
+        "MACaddr":  "23:22:11:ff:33:33"
+      },
+      "B": {
+        "gateway":  "192.168.1.1",
+        "IPaddr":   "192.168.1.3",
+        "MACaddr":  "43:82:21:aa:bb:11"
+      },
+      "C": {
+        "gateway":  "192.168.1.1",
+        "IPaddr":   "192.168.1.4",
+        "MACaddr":  "44:34:aa:22:dd:99"
+      }
+    },
+
+    "router": {
+      "R1":{
+        "iface":    "eth1",
+        "IPaddr":   "192.168.1.1",
+        "MACaddr":  "23:45:33:11:5d:ff"
+      }
+    }
+  },
+
+  "subnet_B": {
+    "ID":       "0x02",
+    "NETaddr":  "10.0.0.0",
+    "mask":     "255.255.255.0",
+    "host": {
+      "D":{
+        "gateway":  "10.0.0.1",
+        "IPaddr":   "10.0.0.2",
+        "MACaddr":  "af:82:df:34:66:19"
+      }
+    },
+    "router": {
+      "R1": {
+        "iface":    "eth2",
+        "IPaddr":   "10.0.0.1",
+        "MACaddr":  "fd:34:89:23:12:aa"
+      },
+      "R2": {
+        "iface":    "eth1",
+        "IPaddr":   "10.0.0.3",
+        "MACaddr":  "34:23:11:90:23:ff"
+      }
+    }
+  },
+  "subnet_C": {
+    "ID":       "0x03",
+    "NETaddr":  "17.0.0.0",
+    "mask":     "255.255.255.0",
+    "host": {
+      "E":{
+        "gateway":  "17.0.0.1",
+        "IPaddr":   "17.0.0.2",
+        "MACaddr":  "af:82:df:34:66:19"
+      },
+      "F":{
+        "gateway":  "17.0.0.1",
+        "IPaddr":   "17.0.0.3",
+        "MACaddr":  "af:82:df:34:66:19"
+      }
+    },
+    "router": {
+      "R2": {
+        "iface":    "eth2",
+        "IPaddr":   "17.0.0.1",
+        "MACaddr":  "34:23:11:90:23:ff"
+      }
+    }
+  }
+}

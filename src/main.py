@@ -1,7 +1,13 @@
-#Main file for the program
+# Main file for the program
 
-def main():
-    pass
+from readInput import readInput
+
+def main(inputScenario):
+
+	print(inputScenario["subnet_A"]["NETaddr"])
+	print(inputScenario["subnet_A"]["mask"])
 
 if __name__ == "__main__":
-    main()
+	
+	inString = readInput("infile.json")
+	main(inString)
