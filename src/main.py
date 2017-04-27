@@ -4,10 +4,10 @@ from readInput import readInput
 
 def main(inputScenario):
 
-	print(inputScenario["subnet_A"]["NETaddr"])
-	print(inputScenario["subnet_A"]["mask"])
+    for a in inputScenario["subnets"]:
+        print(a["id"])
 
 if __name__ == "__main__":
-	
-	inString = readInput("infile.json")
-	main(inString)
+    
+    inString = readInput("infile.json")
+    main(inString)
