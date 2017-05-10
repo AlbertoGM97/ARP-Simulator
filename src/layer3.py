@@ -32,6 +32,8 @@ class IP_utils:
     @staticmethod
     def number_to_IP(num_IP_addr):
         IP_str = ""
-        temp = num_IP_addr
         
-        return IP_str
+        for k in range(0, 4):
+            IP_str = IP_str + str((num_IP_addr >> ((3-k)*8)) & 0xFF) + "."
+
+        return IP_str[0:-1]

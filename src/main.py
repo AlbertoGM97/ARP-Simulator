@@ -6,7 +6,7 @@ from layer3 import *
 def main(topologia):
     IPorigin = input("Enter the IP of the source for the packet: ")
     IPdest   = input("Enter the IP of the destination for the packet: ")
-
+    
     for a in topologia["subnets"]: # Esto simplemente es de ejemplo
         print(a["id"])
 
