@@ -7,15 +7,38 @@ class layer3_device:
         self.routes = routes        # List of dictionaries containing routes. Hosts have only one entry
         self.ARP_table = []         # Empty list for ARP table.     REVIEW: Is it useless?
 
-    def send_ARP(self):
+    def is_your_IP(self, IP_search):
+        pass
+
+    def send_packet(self):
+        pass
+
+    def save_ARP_table(self):
         pass
 
 class iface:
 
-    def __init__(self, name, IP_addr, MAC_addr):                # Class constructor
+    def __init__(self, name, IP_addr, MAC_addr, layer3_parent):                # Class constructor
         self.name = name
         self.IP_addr = IP_addr
         self.MAC_addr = MAC_addr
+        self.layer3_parent = layer3_parent
+        self.adjacent = []
+
+    def add_adjacent(self, new_iface):
+        pass
+
+    def send_ARP(self):
+        pass
+
+    def receive_ARP(self):
+        pass
+
+    def send_frame(self):
+        pass
+
+    def receive_frame(self):
+        pass
 
 class IP_utils:
 
