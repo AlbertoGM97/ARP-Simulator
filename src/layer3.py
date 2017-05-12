@@ -10,8 +10,8 @@ class layer3_device:
     def is_your_IP(self, IP_search):
         for i in self.ifaces:       # Search among its ifaces objects if one has that IP
             if i.IP_addr == IP_search:
-                return true
-        return false
+                return True
+        return False
 
     def send_packet(self, IP_dest):
         print("Sending packet to" + IP_dest + ".")
@@ -65,9 +65,9 @@ class iface:
     def receive_ARP(self, IP, interface): # Receives interface that asks to pass to save ARP of layer3_device
         if IP == self.IP_addr:
             self.layer3_parent.save_ARP_table(interface)
-            return true
+            return True
         else
-            return false
+            return False
 
     def send_frame(self, MAC, IP_dest):
         print(IP_addr + "sends to" + "IP_dest with MAC" + MAC)
@@ -85,8 +85,8 @@ class iface:
     def is_one_of_your_neighbors(self, IP_search):
         for i in self.adjacent: # Search among its ifaces objects if one has that IP
             if i.IP_addr == IP_search:
-                return true
-        return false
+                return True
+        return False
 
 class IP_utils:
 
