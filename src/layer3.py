@@ -21,9 +21,10 @@ class layer3_device:
         for i in range(0, len(self.ARP_table)):  # Check if IP to send is in ARP table
             if self.ARP_table[i].IP == IP_next:
                 count = count+1
+                break
         if count == 0:
             print("is not in ARP table. Sending ARP broadcast")
-            ARP_table[len(ARP_table)] = interface.send_ARP(IP_next) # Ask for the MAC of IP to send--no estoy seguro este bien puesto
+            self.ARP_table[len(self.ARP_table)] = interface.send_ARP(IP_next) # Ask for the MAC of IP to send--no estoy seguro este bien puesto
         interface.send_frame(MAC, IP_dest)
         
     def findIPnext(IP_dest):
@@ -39,6 +40,7 @@ class layer3_device:
         for i in range(0,len(self.ARP_table)):        # Check if IP to save is in ARP table
             if (self.ARP_table[i].IP == iface.IP_addr) && (self.ARP_table[i].MAC==iface.MAC_addr):
                 count = count+1
+                break
         if count == 0:
             ARP_table[len(ARP_table)] =  iface.MAC_addr, iface.IP_addr    # Save it in ARP table--no estoy seguro de como se hace
 
@@ -52,19 +54,27 @@ class iface:
         self.adjacent = []
 
     def add_adjacent(self, new_iface):
-        pass
+        self.adjacent[len(self.adjacent)] =  new_iface
 
     def send_ARP(self, IP_next):
-        pass
+        for i in range(0, len(self.adjacent)): # Search among its adjacent objects if one has that IP
+            if self.adjacent[i].receive_ARP(IP_next, self):
+                self.layer3_parent.save_ARP_table(self.adjacent[i])
+                break
 
     def receive_ARP(self, IP, interface): # Receives interface that asks to pass to save ARP of layer3_device
-        pass
+        if IP==self.IP_addr:
+            self.layer3_parent.save_ARP_table(interface)
+            return true
+        else
+            return false
 
     def send_frame(self, MAC, IP_dest):
         print(IP_addr + "sends to" + "IP_dest with MAC" + MAC)
         for i in range(0, len(self.adjacent)): # Search among its adjacent objects if one has that IP
             if self.adjacent[i].MAC_addr == MAC:
-                self.adjacent[i].receive_frame(IP_dest);
+                self.adjacent[i].receive_frame(IP_dest)
+                break
 
     def receive_frame(self, IP_dest):
         if IP_dest == IP_addr:
