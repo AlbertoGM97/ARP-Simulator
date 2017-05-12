@@ -5,7 +5,7 @@ class layer3_device:
         self.name = name            # Identification for the device
         self.ifaces = ifaces        # List of iface objects
         self.routes = routes        # List of dictionaries containing routes. Hosts have only one entry
-        self.ARP_table = []         # Empty list for ARP table.     REVIEW: Is it useless?  R2: Why do you say so?
+        self.ARP_table = []         # Empty list for ARP table.
 
     def is_your_IP(self, IP_search):
         for i in range(0,len(self.ifaces)): # Search among its ifaces objects if one has that IP
@@ -14,15 +14,15 @@ class layer3_device:
         return false;
 
     def send_packet(self, IP_dest):
-        print "Sending packet to"+IP_dest+"." 
-        IP_next=findIPnext(IP_dest)    # Search in routing table for IP to send
-        interface = findinterface(IP_next) # Search which our own interfaces sends to that IP
-        count=0
-        for i in range(0,len(self.ARP_table)): # Check if IP to send is in ARP table
-            if self.ARP_table[i].IP==IP_next:
-                count++
-        if count==0:
-            print "is not in ARP table. Sending ARP broadcast"
+        print ("Sending packet to" + IP_dest + ".")
+        IP_next = findIPnext(IP_dest)           # Search in routing table for IP to send
+        interface = findinterface(IP_next)      # Search which our own interfaces sends to that IP
+        count = 0
+        for i in range(0,len(self.ARP_table)):  # Check if IP to send is in ARP table
+            if self.ARP_table[i].IP == IP_next:
+                count = count + 1
+        if count == 0:
+            print("is not in ARP table. Sending ARP broadcast")
             ARP_table[len(ARP_table)] = interface.send_ARP(IP_next) # Ask for the MAC of IP to send--no estoy seguro este bien puesto
         interface.send_frame(MAC, IP_dest)
         
