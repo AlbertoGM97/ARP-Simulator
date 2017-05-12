@@ -42,7 +42,7 @@ class layer3_device:
                 count = count+1
                 break
         if count == 0:
-            ARP_table[len(ARP_table)] =  iface.MAC_addr, iface.IP_addr    # Save it in ARP table FIXME: List of list?
+            ARP_table.append({"MAC_addr": iface.MAC_addr, "IP_addr": iface.IP_addr}) # Save it in ARP table
 
 class iface:
 
