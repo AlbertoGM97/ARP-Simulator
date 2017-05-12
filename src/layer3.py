@@ -58,7 +58,7 @@ class iface:
 
     def send_ARP(self, IP_next):
         for i in self.adjacent: # Search among its adjacent objects if one has that IP
-            if i.receive_ARP(IP_next, self):            # FIXME: Why call self?
+            if i.receive_ARP(IP_next, self):
                 self.layer3_parent.save_ARP_table(i)
                 break
 
