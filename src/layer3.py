@@ -43,6 +43,7 @@ class layer3_device:
                 break
         if count == 0:
             ARP_table.append({"MAC_addr": iface.MAC_addr, "IP_addr": iface.IP_addr}) # Save it in ARP table
+            print("Saved in ARP table of host " + self.name + " the entry IP=" +iface.IP_addr + " MAC=" + iface.MAC_addr + ".")
 
 class iface:
 
@@ -59,10 +60,12 @@ class iface:
     def send_ARP(self, IP_next):
         for i in self.adjacent: # Search among its adjacent objects if one has that IP
             if i.receive_ARP(IP_next, self):
+                print("Received ARP response.")
                 self.layer3_parent.save_ARP_table(i)
                 break
 
     def receive_ARP(self, IP, interface): # Receives interface that asks to pass to save ARP of layer3_device
+        print(self.IP_addr + " receives ARP broadcast.")
         if IP == self.IP_addr:
             self.layer3_parent.save_ARP_table(interface)
             return True
