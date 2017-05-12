@@ -27,10 +27,10 @@ class layer3_device:
             self.ARP_table.append(interface.send_ARP(IP_next)) # Ask for the MAC of IP to send--no estoy seguro este bien puesto
         interface.send_frame(MAC, IP_dest)
         
-    def findIPnext(IP_dest):
+    def findIPnext(self, IP_dest):
         pass
         
-    def findIface(IP_next):
+    def findIface(self, IP_next):
         for i in self.ifaces:          # Search among its ifaces objects if one has that IP
             if i.is_one_of_your_neighbors(IP_next):
                 return i
@@ -82,7 +82,7 @@ class iface:
         else:
             self.layer3_parent.send_packet(IP_dest)
         
-    def is_one_of_your_neighbors(IP_search):
+    def is_one_of_your_neighbors(self, IP_search):
         for i in self.adjacent: # Search among its ifaces objects if one has that IP
             if i.IP_addr == IP_search:
                 return true
