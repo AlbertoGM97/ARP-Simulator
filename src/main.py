@@ -9,13 +9,13 @@ def main(topologia):
     HostList=[HostA,HostB,HostC,HostD,HostE,HostF]
     for a in HostList:
         if(IPorigin== HostA.ifaces[0].IP_addr):
-        break                                        #we have our starting host , this is the one for which we should start the ARP loop
+            break       #we have our starting host , this is the one for which we should start the ARP loop
         
 
 def HostCreator():
     
     HostA= Layer3_device("A",CreateInterfaces("A"),topologia["subnets"][0]["host"][0]["gateway"])
-    HostB= Layer3_device("B",CreateInterfaces("B"),topologia["subnets"[0]["host"][1]["gateway"])
+    HostB= Layer3_device("B",CreateInterfaces("B"),topologia["subnets"][0]["host"][1]["gateway"])
     HostC= Layer3_device("C",CreateInterfaces("C"),topologia["subnets"][0]["host"][2]["gateway"])
     HostD= Layer3_device("D",CreateInterfaces("D"),topologia["subnets"][1]["host"][0]["gateway"])
     HostE= Layer3_device("E",CreateInterfaces("E"),topologia["subnets"][2]["host"][0]["gateway"])
