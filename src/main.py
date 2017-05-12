@@ -6,7 +6,9 @@ from layer3 import *
 def main(topologia):
     IPorigin = input("Enter the IP of the source for the packet: ")
     IPdest   = input("Enter the IP of the destination for the packet: ")
-    def HostCreator():
+
+
+def HostCreator():
     
     HostA= Layer3_device("A",CreateInterfaces("A"),topologia["subnets"][0]["host"][0]["gateway"])
     HostB= Layer3_device("B",CreateInterfaces("B"),topologia["subnets"[0]["host"][1]["gateway"])
@@ -42,11 +44,12 @@ def CreateInterfaces(host):
          return interface
  
 def CreateRouters():
+    
     R1= Layer3_device("R1",CreateInterfaces("R1"),CreateRoutingTable("R1"))
     R2= Layer3_device("R2",CreateInterfaces("R2"),CreateRoutingTable("R2"))
  
 
-if __name__ == "__main__":    # El código va en main, no aqui
+
 def CreateRoutingTable(router):     #this is only for routers since Host have only one entry (gateway)
     if(router=="R1"):
       routingTable= topologia["routing"][0]["table"]              #creating routing table for R1
@@ -57,7 +60,7 @@ def CreateRoutingTable(router):     #this is only for routers since Host have on
 
 
 
-if __name__ == "__main__":    # El código va en main, no aqui
+if __name__ == "__main__":    # El cï¿½digo va en main, no aqui
     
     inString = readInput("infile.json")
     main(inString)
