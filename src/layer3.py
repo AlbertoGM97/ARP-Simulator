@@ -5,15 +5,34 @@ class layer3_device:
         self.name = name            # Identification for the device
         self.ifaces = ifaces        # List of iface objects
         self.routes = routes        # List of dictionaries containing routes. Hosts have only one entry
-        self.ARP_table = []         # Empty list for ARP table.     REVIEW: Is it useless?
+        self.ARP_table = []         # Empty list for ARP table.     REVIEW: Is it useless?  R2: Why do you say so?
 
     def is_your_IP(self, IP_search):
+        for i in range(0,len(self.ifaces)): # Search among its ifaces objects if one has that IP
+            if self.ifaces[i].IP_addr==IP_search:
+                return true;
+        return false;
+
+    def send_packet(self, IP_dest):
+        print "Sending packet to"+IP_dest+"." 
+        IP_next=findIPnext(IP_dest)    # Search in routing table for IP to send
+        interface = findinterface(IP_next) # Search which our own interfaces sends to that IP
+        count=0
+        for i in range(0,len(self.ARP_table)): # Check if IP to send is in ARP table
+            if self.ARP_table[i].IP==IP_next:
+                count++
+        if count==0:
+            print "is not in ARP table. Sending ARP broadcast"
+            ARP_table[len(ARP_table)] = interface.send_ARP(IP_next) # Ask for the MAC of IP to send--no estoy seguro este bien puesto
+        interface.send_frame(MAC, IP_dest)
+        
+    def findIPnext(IP_dest):
+        pass
+        
+    def findinterface(IP_next):
         pass
 
-    def send_packet(self):
-        pass
-
-    def save_ARP_table(self):
+    def save_ARP_table(self, iface):
         pass
 
 class iface:
@@ -28,16 +47,16 @@ class iface:
     def add_adjacent(self, new_iface):
         pass
 
-    def send_ARP(self):
+    def send_ARP(self, IP_next):
         pass
 
-    def receive_ARP(self):
+    def receive_ARP(self, IP, interface): # Receives interface that asks to pass to save ARP of layer3_device
         pass
 
-    def send_frame(self):
+    def send_frame(self, MAC, IP_dest):
         pass
 
-    def receive_frame(self):
+    def receive_frame(self, IP_dest):
         pass
 
 class IP_utils:
