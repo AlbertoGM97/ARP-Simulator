@@ -37,8 +37,8 @@ class layer3_device:
 
     def save_ARP_table(self, iface):
         count = 0
-        for i in range(0,len(self.ARP_table)):        # Check if IP to save is in ARP table
-            if (self.ARP_table[i].IP == iface.IP_addr) && (self.ARP_table[i].MAC==iface.MAC_addr):
+        for i in self.ARP_table:        # Check if IP to save is in ARP table
+            if (i["IP_addr"] == iface.IP_addr) && (i["MAC_addr"] == iface.MAC_addr):
                 count = count+1
                 break
         if count == 0:
