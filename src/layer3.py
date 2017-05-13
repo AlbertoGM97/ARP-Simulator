@@ -16,6 +16,10 @@ class layer3_device:
     def send_packet(self, IP_dest):
         print("Sending packet to" + IP_dest + ".")
         IP_next = findIPnext(IP_dest)            # Search in routing table for IP to send
+        if IP_next == 0:
+            print("[!] ERROR: No route to destination.")
+            exit()
+
         interface = findIface(IP_next)           # Search which our own interfaces sends to that IP
         count = 0
         for i in self.ARP_table:  # Check if IP to send is in ARP table
