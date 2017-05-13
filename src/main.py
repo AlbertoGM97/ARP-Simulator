@@ -4,23 +4,23 @@ from readInput import readInput
 from layer3 import *
 
 def main(topologia):
-    while True:
-        IPorigin = input("Enter the IP of the source for the packet: ")
-        IPdest   = input("Enter the IP of the destination for the packet: ")
-        HostList=[]
-        RouterList=[]
-        for a in HostList:
-            if(a.is_your_IP(IPorigin)): # antes esto if(IPorigin== HostA.ifaces[0].IP_addr):
-                a.sendpacket(IPdest)
-                break       #we have our starting host , this is the one for which we should start the ARP loop
-
-
+    HostList=[]
+    RouterList=[]
     for a in topologia["subnet"]:            #reading all subnets
         for b in topologia["subnet"][a]["host"]:  #reading hosts
             HostCreator(a,b)
     for a in topologia["subnet"][a]:
         for b in topologia["subnet"][a]["router"]:
             CreateRouter(a,b)
+    while True:
+        IPorigin = input("Enter the IP of the source for the packet: ")
+        IPdest   = input("Enter the IP of the destination for the packet: ")
+        for a in HostList:
+            if(a.is_your_IP(IPorigin)): # antes esto if(IPorigin== HostA.ifaces[0].IP_addr):
+                a.sendpacket(IPdest)
+                break       #we have our starting host , this is the one for which we should start the ARP loop
+
+
 def HostCreator(subnet,host): 
     newHost= layer3_device(topologia["subnets"][subnet]["host"][host]["id"],CreateInterfaces("host",subnet,host,newHost),topologia["subnets"][subnet]["host"][host]["gateway"])
     HostList.append(newHost)
