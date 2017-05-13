@@ -70,8 +70,8 @@ def CreateRouter(subnet,router):
         if (a.name==topologia):   #we have already created that router at the router list
            a.ifaces.append(CreateInterfaces(subnet,router)) 
         else:     # we create the router in the list
-        newRouter= Layer3_device(topologia["subnet"][subnet]["router"][router]["id"],CreateInterfaces("router",subnet,router,newRouter,)
-        RouterList.append(newRouter)
+            newRouter= Layer3_device(topologia["subnet"][subnet]["router"][router]["id"],CreateInterfaces("router",subnet,router,newRouter)
+            RouterList.append(newRouter)
         
 
 def CreateRoutingTable(router):     #this is only for routers since Host have only one entry (gateway)
