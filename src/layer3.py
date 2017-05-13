@@ -19,7 +19,7 @@ class layer3_device:
         interface = findIface(IP_next)           # Search which our own interfaces sends to that IP
         count = 0
         for i in self.ARP_table:  # Check if IP to send is in ARP table
-            if i.IP == IP_next:
+            if i["IP_addr"] == IP_next:
                 count = count+1
                 break
         if count == 0:
