@@ -4,8 +4,11 @@ from readInput import readInput
 from layer3 import *
 
 def main(topologia):
+    SubnetsList=[]
     HostList=[]
     RouterList=[]
+    for a in range(0,len(topologia["subnet"]):
+        SubnetsList[a]=topologia["subnet"]         #saving all subnets
     for a in range(0,len(topologia["subnet"])):            #reading all subnets
         for b in range(0,len(topologia["subnet"][a]["host"])):  #reading hosts
             HostCreator(a,b)
@@ -77,7 +80,39 @@ def CreateRouter(subnet,router):
 def CreateRoutingTable(router):     #this is only for routers since Host have only one entry (gateway)
     for a in range(0,len(RouterList)):
         a.routes= topologia["routing"][a]["table"]
-
+def CreateHostsRoutingTable:
+    for a in range(0,len(HostList)):    #all hosts in the topology
+       gateway= HostList[a].routes  #I had saved here before the gateway of each host.
+       HostList[a].routes=[]
+       IP=HostList[a].ifaces[0].IP_addr #saving in IP de IP address of the interface of the host.
+       for b in range(0,len(SubnetsList)):   #going over all subnets 
+           if(SubnetList[b]["NETaddr"]== IP^SubnetList[b]["mask"]):   #finding out in which subnet is the host --> at subnet 'b'
+              for c in range(0,len(topologia["subnet"][b]["host"])):        #for all hosts in the correspondent subnet the gateway for the routing table should be IP of the host.
+                 entrada= { 
+                             "IP": topologia["subnet"][b]["host"][c]["IPaddr"]
+                             "Mask": "255.255.255.255"                                    
+                            "Gateway":   topologia["subnet"][b]["host"][c]["IPaddr"]
+                            "Interface": HostList[a].ifaces[0].name
+                 
+                           }
+                HostList[a].routes.append(entrada)           
+             for c in range(0,len(topologia["subnet"]):   #we have to create another entry for each subnet
+                 entrada=
+                 {
+                    "IP": topologia["subnet"][c]["NETaddr"]   
+                    "Mask": topologia["subnet"][c]["mask"]
+                    "Gateway": gateway      #We had saved the gateway 
+                    "Interface": HostList[a].ifaces.name
+                 
+                 }
+        entrada_default=
+        {
+        "IP":    "0.0.0.0"    #this is the default.
+        "Mask": "0.0.0.0"
+        "Gateway": gateway
+        "Interface": HostList[a].ifaces.name
+        
+        }
 
 
 if __name__ == "__main__":    # El c�digo va en main, no aqui
