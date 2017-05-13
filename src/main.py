@@ -5,13 +5,13 @@ from layer3 import *
 
 def main(topologia):
     while True:
-    IPorigin = input("Enter the IP of the source for the packet: ")
-    IPdest   = input("Enter the IP of the destination for the packet: ")
-    HostList=[HostA,HostB,HostC,HostD,HostE,HostF]
-    for a in HostList:
-        if(a.is_your_IP(IPorigin)): # antes esto if(IPorigin== HostA.ifaces[0].IP_addr):
-            a.sendpacket(IPdest)
-            break       #we have our starting host , this is the one for which we should start the ARP loop
+        IPorigin = input("Enter the IP of the source for the packet: ")
+        IPdest   = input("Enter the IP of the destination for the packet: ")
+        HostList=[HostA,HostB,HostC,HostD,HostE,HostF]
+        for a in HostList:
+            if(a.is_your_IP(IPorigin)): # antes esto if(IPorigin== HostA.ifaces[0].IP_addr):
+                a.sendpacket(IPdest)
+                break       #we have our starting host , this is the one for which we should start the ARP loop
 
 def HostCreator():
     
