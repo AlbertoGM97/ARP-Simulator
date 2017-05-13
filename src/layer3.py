@@ -24,7 +24,7 @@ class layer3_device:
                 break
         if count == 0:
             print("is not in ARP table. Sending ARP broadcast")
-            self.ARP_table.append(interface.send_ARP(IP_next)) # Ask for the MAC of IP to send--no estoy seguro este bien puesto
+            interface.send_ARP(IP_next) # Ask for the MAC of IP to send--no estoy seguro este bien puesto !!!
         interface.send_frame(MAC, IP_dest)
         
     def findIPnext(self, IP_dest):
