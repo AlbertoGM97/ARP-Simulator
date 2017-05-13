@@ -15,11 +15,11 @@ def main(topologia):
                 break       #we have our starting host , this is the one for which we should start the ARP loop
 
 
-    for a in topologia["subnet"]:            #reading all subnets
-        for b in topologia["subnet"][a]["host"]:  #reading hosts
+    for a in range(0,len(topologia["subnet"])):            #reading all subnets
+        for b in range(0,len(topologia["subnet"][a]["host"])):  #reading hosts
             HostCreator(a,b)
-    for a in topologia["subnet"][a]:
-        for b in topologia["subnet"][a]["router"]:
+    for a in range(0,len(topologia["subnet"][a])):
+        for b in range(0,len(topologia["subnet"][a]["router"])):
             CreateRouter(a,b)
 def HostCreator(subnet,host): 
     newHost= layer3_device(topologia["subnets"][subnet]["host"][host]["id"],CreateInterfaces("host",subnet,host,newHost),topologia["subnets"][subnet]["host"][host]["gateway"])
@@ -66,7 +66,7 @@ def CreateInterfaces(device,subnet,host,parent):
      #     return interface
  
 def CreateRouter(subnet,router):
-    for a in RouterList:
+    for a in range(0,len(RouterList)):
         if (a.name==topologia):   #we have already created that router at the router list
            a.ifaces.append(CreateInterfaces(subnet,router)) 
         else:     # we create the router in the list
@@ -75,7 +75,7 @@ def CreateRouter(subnet,router):
         
 
 def CreateRoutingTable(router):     #this is only for routers since Host have only one entry (gateway)
-    for a in RouterList:
+    for a in range(0,len(RouterList)):
         a.routes= topologia["routing"][a]["table"]
 
 
