@@ -2,16 +2,19 @@
 
 from readInput import readInput
 from layer3 import *
-
+HostList=[]    #as global variables
+RouterList=[]
 def main(topologia):
-    HostList=[]
-    RouterList=[]
+    
     for a in range(0,len(topologia["subnet"])):            #reading all subnets
         for b in range(0,len(topologia["subnet"][a]["host"])):  #reading hosts
             HostCreator(a,b)
     for a in range(0,len(topologia["subnet"][a])):
         for b in range(0,len(topologia["subnet"][a]["router"])):
             CreateRouter(a,b)
+    CreateRoutingTable()    #creates the routing table for the routers
+    CreateHostsRoutingTable()  #creates the routing table for the hosts;
+    
     while True:
         IPorigin = input("Enter the IP of the source for the packet: ")
         IPdest   = input("Enter the IP of the destination for the packet: ")
@@ -19,7 +22,7 @@ def main(topologia):
             if(a.is_your_IP(IPorigin)): # antes esto if(IPorigin== HostA.ifaces[0].IP_addr):
                 a.sendpacket(IPdest)
                 break       #we have our starting host , this is the one for which we should start the ARP loop
-
+    
 
 def HostCreator(subnet,host): 
     temp_route = [{"IP_dest": "0.0.0.0", "mask" : "0.0.0.0", "gateway": topologia["subnets"][subnet]["host"][host]["gateway"]}]
