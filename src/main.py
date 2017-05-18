@@ -44,7 +44,7 @@ def CreateRouter(subnet,router):
 if(len(RouterList)==0):
     newRouter= Layer3_device(topologia["subnet"][subnet]["router"][router]["id"],[],[])
     newRouter.ifaces.append(CreateInterfaces("router",subnet,router,"parent"))
-    newRouter.ifaces.[len(newRouter.ifaces)].layer3_parent=newRouter]
+    newRouter.ifaces.[len(newRouter.ifaces)].layer3_parent=newRouter
     RouterList.append(newRouter)
 else:
     for a in (RouterList)):
@@ -53,7 +53,7 @@ else:
         else:     # we create the router in the list
             newRouter= Layer3_device(topologia["subnet"][subnet]["router"][router]["id"],[],[])
             newRouter.ifaces.append(CreateInterfaces("router",subnet,router,"parent"))
-            newRouter.ifaces.[len(newRouter.ifaces)].layer3_parent=newRouter]
+            newRouter.ifaces.[len(newRouter.ifaces)].layer3_parent=newRouter
             RouterList.append(newRouter)
         
 
