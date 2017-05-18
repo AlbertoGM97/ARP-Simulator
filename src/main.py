@@ -13,7 +13,7 @@ def main():
         for b in range(0,len(topologia["subnets"][a]["host"])):  #reading hosts
             HostCreator(a,b)
 
-    for a in range(0,len(topologia["subnets"][a])):
+    for a in range(0,len(topologia["subnets"])):
         for b in range(0,len(topologia["subnets"][a]["router"])):
             CreateRouter(a,b)
 
