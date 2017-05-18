@@ -38,7 +38,7 @@ def CreateInterfaces(device,subnet,host,parent):
 
  
 def CreateRouter(subnet,router):
-    for a in range(0,len(RouterList)):
+    for a in (RouterList)):
         if (a.name==topologia):   #we have already created that router at the router list
            a.ifaces.append(CreateInterfaces(subnet,router)) 
         else:     # we create the router in the list
@@ -46,8 +46,8 @@ def CreateRouter(subnet,router):
             RouterList.append(newRouter)
         
 
-def CreateRoutingTable(router):     #this is only for routers since Host have only one entry (gateway)
-    for a in range(0,len(RouterList)):
+def CreateRoutingTable()):     #this is only for routers since Host have only one entry (gateway)
+    for a in RouterList:
         a.routes= topologia["routing"][a]["table"]
 
 def CreateHostsRoutingTable:
