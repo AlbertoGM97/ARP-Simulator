@@ -42,7 +42,8 @@ def CreateInterfaces(device,subnet,host,parent):
  
 def CreateRouter(subnet,router):
 if(len(RouterList)==0):
-    newRouter= Layer3_device(topologia["subnet"][subnet]["router"][router]["id"],CreateInterfaces("router",subnet,router,newRouter)
+    newRouter= Layer3_device(topologia["subnet"][subnet]["router"][router]["id"],,)
+    newRouter.ifaces.append(CreateInterfaces("router",subnet,router,newRouter))
     RouterList.append(newRouter)
 else:
     for a in (RouterList)):
