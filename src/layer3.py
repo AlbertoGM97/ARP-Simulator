@@ -47,7 +47,7 @@ class layer3_device:
     def save_ARP_table(self, iface):
         count = 0
         for i in self.ARP_table:        # Check if IP to save is in ARP table
-            if (i["IP_addr"] == iface.IP_addr) && (i["MAC_addr"] == iface.MAC_addr):
+            if (i["IP_addr"] == iface.IP_addr) and (i["MAC_addr"] == iface.MAC_addr):
                 count = count+1
                 break
         if count == 0:
@@ -78,7 +78,7 @@ class iface:
         if IP == self.IP_addr:
             self.layer3_parent.save_ARP_table(interface)
             return True
-        else
+        else:
             return False
 
     def send_frame(self, MAC, IP_dest):

@@ -2,15 +2,19 @@
 
 from readInput import readInput
 from layer3 import *
+
 HostList=[]    #as global variables
 RouterList=[]
-def main(topologia):
+topologia = readInput("infile.json")
+
+def main():
     
-    for a in range(0,len(topologia["subnet"])):            #reading all subnets
-        for b in range(0,len(topologia["subnet"][a]["host"])):  #reading hosts
+    for a in range(0,len(topologia["subnets"])):            #reading all subnets
+        for b in range(0,len(topologia["subnets"][a]["host"])):  #reading hosts
             HostCreator(a,b)
-    for a in range(0,len(topologia["subnet"][a])):
-        for b in range(0,len(topologia["subnet"][a]["router"])):
+
+    for a in range(0,len(topologia["subnets"][a])):
+        for b in range(0,len(topologia["subnets"][a]["router"])):
             CreateRouter(a,b)
 
     #CreateRoutingTable()    #creates the routing table for the routers
@@ -26,8 +30,10 @@ def main(topologia):
     
 
 def HostCreator(subnet,host): 
+
     temp_route = [{"IP_dest": "0.0.0.0", "mask" : "0.0.0.0", "gateway": topologia["subnets"][subnet]["host"][host]["gateway"], "iface":"eth0"}]
-    newHost= layer3_device(topologia["subnets"][subnet]["host"][host]["id"],CreateInterfaces("host",subnet,host,newHost),temp_route)
+    newHost= layer3_device(topologia["subnets"][subnet]["host"][host]["id"],CreateInterfaces("host",subnet,host,0),temp_route)
+    newHost.ifaces[-1].layer3_parent=newHost
     HostList.append(newHost)
     
     
@@ -37,31 +43,31 @@ def CreateInterfaces(device,subnet,host,parent):
         interface=iface("eth0",topologia["subnets"][subnet]["host"][host]["IPaddr"],topologia["subnets"][subnet]["host"][host]["MACaddr"],parent)
         return [interface]
     if(device=="router"):
-        interface=iface(topologia["subnet"][subnet]["router"][host]["iface"],topologia["subnet"][subnet]["router"][host]["IPaddr"],topologia["subnet"][subnet]["router"][host]["MACaddr"],parent)
+        interface=iface(topologia["subnets"][subnet]["router"][host]["iface"],topologia["subnets"][subnet]["router"][host]["IPaddr"],topologia["subnets"][subnet]["router"][host]["MACaddr"],parent)
         return interface
 
  
 def CreateRouter(subnet,router):
     
     for i in range(0, len(topologia["routing"])):
-        if (topologia["routing"][i].id == topologia["subnet"][subnet]["router"][router]["id"]):
+        if (topologia["routing"][i]["id"] == topologia["subnets"][subnet]["router"][router]["id"]):
             break
 
     temp_routing = topologia["routing"][i]["table"]
 
     if(len(RouterList)==0):
-        newRouter= Layer3_device(topologia["subnet"][subnet]["router"][router]["id"],[],temp_routing)
+        newRouter= layer3_device(topologia["subnets"][subnet]["router"][router]["id"],[],temp_routing)
         newRouter.ifaces.append(CreateInterfaces("router",subnet,router,"parent"))
-        newRouter.ifaces.[len(newRouter.ifaces)].layer3_parent=newRouter
+        newRouter.ifaces[-1].layer3_parent=newRouter
         RouterList.append(newRouter)
     else:
-        for a in (RouterList)):
-            if (a.name==topologia["subnets"][subnet]["router"][router].id):   #we have already created that router at the router list
+        for a in (RouterList):
+            if (a.name==topologia["subnets"][subnet]["router"][router]["id"]):   #we have already created that router at the router list
                 a.ifaces.append(CreateInterfaces("router",subnet,router,a)) 
             else:     # we create the router in the list
-                newRouter= Layer3_device(topologia["subnet"][subnet]["router"][router]["id"],[],temp_routing)
+                newRouter= layer3_device(topologia["subnets"][subnet]["router"][router]["id"],[],temp_routing)
                 newRouter.ifaces.append(CreateInterfaces("router",subnet,router,"parent"))
-                newRouter.ifaces.[len(newRouter.ifaces)].layer3_parent=newRouter
+                newRouter.ifaces[-1].layer3_parent=newRouter
                 RouterList.append(newRouter)
         
 
@@ -106,5 +112,4 @@ def CreateHostsRoutingTable:
 '''
 if __name__ == "__main__":    # El c�digo va en main, no aqui
     
-    inString = readInput("infile.json")
-    main(inString)
+    main()
