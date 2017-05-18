@@ -22,7 +22,8 @@ def main(topologia):
 
 
 def HostCreator(subnet,host): 
-    newHost= layer3_device(topologia["subnets"][subnet]["host"][host]["id"],CreateInterfaces("host",subnet,host,newHost),topologia["subnets"][subnet]["host"][host]["gateway"])
+    temp_route = [{"IP_dest": "0.0.0.0", "mask" : "0.0.0.0", "gateway": topologia["subnets"][subnet]["host"][host]["gateway"]}]
+    newHost= layer3_device(topologia["subnets"][subnet]["host"][host]["id"],CreateInterfaces("host",subnet,host,newHost),temp_route)
     HostList.append(newHost)
     
     #HostA= Layer3_device("A",CreateInterfaces("A"),topologia["subnets"][0]["host"][0]["gateway"])
