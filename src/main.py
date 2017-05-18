@@ -25,7 +25,7 @@ def main(topologia):
     
 
 def HostCreator(subnet,host): 
-    temp_route = [{"IP_dest": "0.0.0.0", "mask" : "0.0.0.0", "gateway": topologia["subnets"][subnet]["host"][host]["gateway"]}]
+    temp_route = [{"IP_dest": "0.0.0.0", "mask" : "0.0.0.0", "gateway": topologia["subnets"][subnet]["host"][host]["gateway"], "iface":"eth0"}]
     newHost= layer3_device(topologia["subnets"][subnet]["host"][host]["id"],CreateInterfaces("host",subnet,host,newHost),temp_route)
     HostList.append(newHost)
     
@@ -34,7 +34,7 @@ def CreateInterfaces(device,subnet,host,parent):
 
     if(device=="host"):
         interface=iface("eth0",topologia["subnets"][subnet]["host"][host]["IPaddr"],topologia["subnets"][subnet]["host"][host]["MACaddr"],parent)
-        return interface
+        return [interface]
     if(device=="router"):
         interface=iface(topologia["subnet"][subnet]["router"][host]["iface"],topologia["subnet"][subnet]["router"][host]["IPaddr"],topologia["subnet"][subnet]["router"][host]["MACaddr"],parent)
         return interface
