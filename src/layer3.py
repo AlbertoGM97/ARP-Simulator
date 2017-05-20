@@ -34,9 +34,13 @@ class layer3_device:
     def findIPnext(self, IP_dest):
         for each_route in self.routes:
             temp = IP_utils.IP_to_number(each_route["mask"]) & IP_utils.IP_to_number(IP_dest)
-            if (each_route["IP_dest"] == IP_utils.number_to_IP(temp)):
-                return each_route["gateway"] # Next IP on route (If 0.0.0.0 then last IP)
 
+            try:
+                if (each_route["IP_dest"] == IP_utils.number_to_IP(temp)):
+                    return each_route["gateway"] # Next IP on route (If 0.0.0.0 then last IP)
+            except:
+                if (each_route["IP_dest"] == "default")
+                    return each_route["gateway"]
         return "0"      # Not found
         
     def findIface(self, IP_next):
