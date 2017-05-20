@@ -27,7 +27,7 @@ def main():
                     Hosts_in_subnet.append(host)
             for host1 in Hosts_in_subnet:
                 for host2 in Hosts_in_subnet:
-                    if (host1 != host2) and host1.ifaces[0].is_one_of_your_neighbors(host2.ifaces[0].IP_addr):
+                    if (host1 != host2) and not host1.ifaces[0].is_one_of_your_neighbors(host2.ifaces[0].IP_addr):
                         host1.ifaces[0].add_adjacent(host2.ifaces[0]) #Since in this simplification program, hosts only have one interface
 
     #CreateRoutingTable()    #creates the routing table for the routers
