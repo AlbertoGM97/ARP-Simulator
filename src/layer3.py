@@ -34,7 +34,7 @@ class layer3_device:
             if IP_next == self.ARP_table[k]["IP_addr"]:
                 break
 
-        interface.send_frame(self.ARP_table[k]["MAC_addr"], IP_next)
+        interface.send_frame(self.ARP_table[k]["MAC_addr"], IP_dest)
         
     def findIPnext(self, IP_dest):
         for each_route in self.routes:
