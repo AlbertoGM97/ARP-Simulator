@@ -19,7 +19,7 @@ def main():
             
     for router in RouterList: #create adjacents
         for interface in router.ifaces:
-            Hosts_in_subnet[]
+            Hosts_in_subnet = []
             for host in HostList:
                 if(host.is_your_IP(interface.IP_addr)):
                     interface.add_adjacent(host.ifaces[0])#Since in this simplification program, hosts only have one interface
@@ -29,10 +29,36 @@ def main():
                 for host2 in Hosts_in_subnet:
                     if (host1 != host2) and not host1.ifaces[0].is_one_of_your_neighbors(host2.ifaces[0].IP_addr):
                         host1.ifaces[0].add_adjacent(host2.ifaces[0]) #Since in this simplification program, hosts only have one interface
-
-    #CreateRoutingTable()    #creates the routing table for the routers
-    #CreateHostsRoutingTable()  #creates the routing table for the hosts;
     
+    # --------------- DEBUG -------------------------------
+    print("These are the hosts")
+    for each_host in HostList:
+        print(" -", each_host.name, " -> ", end = "")
+        for each_interface in each_host.ifaces:
+            print("IP: ", each_interface.IP_addr, end = "")
+            #print(" MAC:", each_interface.MAC_addr, end = " ")
+            
+            print("  ADJACENTS: ", end = "")
+            for each_adjacent in each_interface.adjacent:
+                print(each_adjacent.parent.name, end = "")
+
+        print("")
+
+    print("These are the Routers")
+    for each_router in RouterList:
+        print(" -", each_router.name, " -> ")
+        for each_interface in each_router.ifaces:
+            print("         IP: ", each_interface.IP_addr, end = "")
+            #print(" MAC:", each_interface.MAC_addr, end = " ")
+            
+            print("         ADJACENTS:  ", end = "")
+            for each_adjacent in each_interface.adjacent:
+                print(each_adjacent.parent.name, end = ", ")
+            print("")
+    print("")
+
+        
+    #------------------------------------------------------
     while True:
         IPorigin = input("Enter the IP of the source for the packet: ")
         IPdest   = input("Enter the IP of the destination for the packet: ")
