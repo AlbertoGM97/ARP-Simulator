@@ -14,7 +14,7 @@ class layer3_device:
         return False
 
     def send_packet(self, IP_dest):
-        print("Sending packet to" + IP_dest + ".")
+        print("Device "+ self.name +" sending packet to destination = " + IP_dest + ".")
         IP_next = self.findIPnext(IP_dest)            # Search in routing table for IP to send
         if IP_next == 0:
             print("[!] ERROR: No route to destination.")
@@ -61,7 +61,7 @@ class layer3_device:
                 break
         if count == 0:
             self.ARP_table.append({"MAC_addr": iface.MAC_addr, "IP_addr": iface.IP_addr}) # Save it in ARP table
-            print("Saved in ARP table of host " + self.name + " the entry IP=" +iface.IP_addr + " MAC=" + iface.MAC_addr + ".")
+            print("Saved in ARP table of host " + self.name + " the entry IP = " +iface.IP_addr + " MAC = " + iface.MAC_addr + ".")
 
 class iface:
 
@@ -91,7 +91,7 @@ class iface:
             return False
 
     def send_frame(self, recvMAC, IP_dest):
-        print(self.IP_addr + "sends to" + IP_dest + "with MAC" + recvMAC)
+        print(self.IP_addr + " sends to " + IP_dest + " with MAC " + recvMAC)
         for i in self.adjacent: # Search among its adjacent objects if one has that IP
             if i.MAC_addr == recvMAC:
                 i.receive_frame(IP_dest)
@@ -99,7 +99,7 @@ class iface:
 
     def receive_frame(self, IP_dest):
         if IP_dest == self.IP_addr:
-            print("Packet arrived to destination.")
+            print("Packet arrived to destination "+ IP_dest+".")
         else:
             self.layer3_parent.send_packet(IP_dest)
         
