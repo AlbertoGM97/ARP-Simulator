@@ -90,7 +90,7 @@ class iface:
             return False
 
     def send_frame(self, recvMAC, IP_dest):
-        print(IP_addr + "sends to" + IP_dest + "with MAC" + recvMAC)
+        print(self.IP_addr + "sends to" + IP_dest + "with MAC" + recvMAC)
         for i in self.adjacent: # Search among its adjacent objects if one has that IP
             if i.MAC_addr == recvMAC:
                 i.receive_frame(IP_dest)
