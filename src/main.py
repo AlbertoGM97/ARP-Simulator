@@ -112,6 +112,7 @@ def CreateRouter(subnet,router):
             break
 
     temp_routing = topologia["routing"][i]["table"]
+    print(topologia["subnets"][subnet]["router"][router]["id"] , "-----------------")
 
     if(len(RouterList)==0):
         newRouter= layer3_device(topologia["subnets"][subnet]["router"][router]["id"],[],temp_routing)
@@ -119,14 +120,17 @@ def CreateRouter(subnet,router):
         newRouter.ifaces[-1].layer3_parent=newRouter
         RouterList.append(newRouter)
     else:
+        flag = 0
         for a in (RouterList):
             if (a.name==topologia["subnets"][subnet]["router"][router]["id"]):   #we have already created that router at the router list
-                a.ifaces.append(CreateInterfaces("router",subnet,router,a)) 
-            else:     # we create the router in the list
-                newRouter= layer3_device(topologia["subnets"][subnet]["router"][router]["id"],[],temp_routing)
-                newRouter.ifaces.append(CreateInterfaces("router",subnet,router,"parent"))
-                newRouter.ifaces[-1].layer3_parent=newRouter
-                RouterList.append(newRouter)
+                a.ifaces.append(CreateInterfaces("router",subnet,router,a))
+                flag = 1
+                
+        if flag == 0:     # we create the router in the list
+            newRouter= layer3_device(topologia["subnets"][subnet]["router"][router]["id"],[],temp_routing)
+            newRouter.ifaces.append(CreateInterfaces("router",subnet,router,"parent"))
+            newRouter.ifaces[-1].layer3_parent=newRouter
+            RouterList.append(newRouter)
         
 
 '''
