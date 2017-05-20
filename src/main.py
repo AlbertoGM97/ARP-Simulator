@@ -16,6 +16,19 @@ def main():
     for a in range(0,len(topologia["subnets"])):
         for b in range(0,len(topologia["subnets"][a]["router"])):
             CreateRouter(a,b)
+            
+    for router in RouterList: #create adjacents
+        for interface in router.ifaces:
+            Hosts_in_subnet[]
+            for host in HostList:
+                if(host.is_your_IP(interface.IP_addr)):
+                    interface.add_adjacent(host.ifaces[0])#Since in this simplification program, hosts only have one interface
+                    host.ifaces[0].add_adjacent(interface)
+                    Hosts_in_subnet.append(host)
+            for host1 in Hosts_in_subnet:
+                for host2 in Hosts_in_subnet:
+                    if (host1 != host2) and host1.ifaces[0].is_one_of_your_neighbors(host2.ifaces[0].IP_addr):
+                        host1.ifaces[0].add_adjacent(host2.ifaces[0]) #Since in this simplification program, hosts only have one interface
 
     #CreateRoutingTable()    #creates the routing table for the routers
     #CreateHostsRoutingTable()  #creates the routing table for the hosts;
