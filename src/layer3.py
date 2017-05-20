@@ -15,12 +15,12 @@ class layer3_device:
 
     def send_packet(self, IP_dest):
         print("Sending packet to" + IP_dest + ".")
-        IP_next = findIPnext(IP_dest)            # Search in routing table for IP to send
+        IP_next = self.findIPnext(IP_dest)            # Search in routing table for IP to send
         if IP_next == 0:
             print("[!] ERROR: No route to destination.")
             exit()
 
-        interface = findIface(IP_next)           # Search which our own interfaces sends to that IP
+        interface = self.findIface(IP_next)           # Search which our own interfaces sends to that IP
         count = 0
         for i in self.ARP_table:  # Check if IP to send is in ARP table
             if i["IP_addr"] == IP_next:
@@ -39,7 +39,7 @@ class layer3_device:
                 if (each_route["IP_dest"] == IP_utils.number_to_IP(temp)):
                     return each_route["gateway"] # Next IP on route (If 0.0.0.0 then last IP)
             except:
-                if (each_route["IP_dest"] == "default")
+                if (each_route["IP_dest"] == "default"):
                     return each_route["gateway"]
         return "0"      # Not found
         
@@ -55,7 +55,7 @@ class layer3_device:
                 count = count+1
                 break
         if count == 0:
-            ARP_table.append({"MAC_addr": iface.MAC_addr, "IP_addr": iface.IP_addr}) # Save it in ARP table
+            self.ARP_table.append({"MAC_addr": iface.MAC_addr, "IP_addr": iface.IP_addr}) # Save it in ARP table
             print("Saved in ARP table of host " + self.name + " the entry IP=" +iface.IP_addr + " MAC=" + iface.MAC_addr + ".")
 
 class iface:
@@ -85,10 +85,10 @@ class iface:
         else:
             return False
 
-    def send_frame(self, MAC, IP_dest):
-        print(IP_addr + "sends to" + IP_dest + "with MAC" + MAC)
+    def send_frame(self, recvMAC, IP_dest):
+        print(IP_addr + "sends to" + IP_dest + "with MAC" + recvMAC)
         for i in self.adjacent: # Search among its adjacent objects if one has that IP
-            if i.MAC_addr == MAC:
+            if i.MAC_addr == recvMAC:
                 i.receive_frame(IP_dest)
                 break
 

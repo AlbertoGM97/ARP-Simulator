@@ -44,7 +44,7 @@ def main():
             
             print("  ADJACENTS: ", end = "")
             for each_adjacent in each_interface.adjacent:
-                print(each_adjacent.parent.name, end = "")
+                print(each_adjacent.layer3_parent.name, end = "")
 
         print("")
 
@@ -57,7 +57,7 @@ def main():
             
             print("         ADJACENTS:  ", end = "")
             for each_adjacent in each_interface.adjacent:
-                print(each_adjacent.parent.name, end = ", ")
+                print(each_adjacent.layer3_parent.name, end = ", ")
             print("")
     print("")
 
@@ -76,7 +76,7 @@ def isinSubnet(ip_router,ip_host):
     for index_subnet in range(0,len(topologia["subnets"])):            #reading all subnets
         for index_router in range(0,len(topologia["subnets"][index_subnet]["router"])):  #reading hosts
             if (ip_router == topologia["subnets"][index_subnet]["router"][index_router]["IPaddr"]):
-                return isInSunbet(ip_host, topologia["subnets"][index_subnet]["NETaddr"],topologia["subnets"][index_subnet]["mask"])
+                return isInSubnet(ip_host, topologia["subnets"][index_subnet]["NETaddr"],topologia["subnets"][index_subnet]["mask"])
 
 
 
