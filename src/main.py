@@ -25,7 +25,7 @@ def main():
         for interface in router.ifaces:
             Hosts_in_subnet = []
             for host in HostList:
-                if(host.is_your_IP(interface.IP_addr)):
+                if(isinSubnet(interface.IP_addr,host.ifaces[0].IP_addr)):
                     interface.add_adjacent(host.ifaces[0])#Since in this simplification program, hosts only have one interface
                     host.ifaces[0].add_adjacent(interface)
                     Hosts_in_subnet.append(host)
@@ -71,6 +71,14 @@ def main():
                 a.send_packet(IPdest)
                 break       #we have our starting host , this is the one for which we should start the ARP loop
     
+def isinSubnet(ip_router,ip_host):
+
+    for index_subnet in range(0,len(topologia["subnets"])):            #reading all subnets
+        for index_router in range(0,len(topologia["subnets"][index_subnet]["router"])):  #reading hosts
+            if (ip_router == topologia["subnets"][index_subnet]["router"][index_router]["IPaddr"]):
+                return isInSunbet(ip_host, topologia["subnets"][index_subnet]["NETaddr"],topologia["subnets"][index_subnet]["mask"])
+
+
 
 def isInSubnet(IP_addr_layer3_device, NET_addr, mask):
 
