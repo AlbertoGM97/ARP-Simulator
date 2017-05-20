@@ -76,7 +76,7 @@ def isinSubnet(ip_router,ip_host):
     for index_subnet in range(0,len(topologia["subnets"])):            #reading all subnets
         for index_router in range(0,len(topologia["subnets"][index_subnet]["router"])):  #reading hosts
             if (ip_router == topologia["subnets"][index_subnet]["router"][index_router]["IPaddr"]):
-            return isInSunbet(ip_host, topologia["subnets"][index_subnet]["NETaddr"],topologia["subnets"][index_subnet]["mask"])
+                return isInSunbet(ip_host, topologia["subnets"][index_subnet]["NETaddr"],topologia["subnets"][index_subnet]["mask"])
 
 
 
