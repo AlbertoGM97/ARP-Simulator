@@ -3,17 +3,21 @@
 from readInput import readInput
 from layer3 import *
 
-HostList=[]    #as global variables
-RouterList=[]
+SubnetList = []
+HostList = []    #as global variables
+RouterList = []
 topologia = readInput("infile.json")
 
 def main():
-    
-    for a in range(0,len(topologia["subnets"])):            #reading all subnets
-        for b in range(0,len(topologia["subnets"][a]["host"])):  #reading hosts
+
+    for each_subnet in topologia["subnets"]:                    # SUBNETS
+        SubnetList.append({"name":each_subnet["id"], "NET_addr": each_subnet["NETaddr"], "mask": each_subnet["mask"]})
+
+    for a in range(0,len(topologia["subnets"])):                # HOSTS
+        for b in range(0,len(topologia["subnets"][a]["host"])):
             HostCreator(a,b)
 
-    for a in range(0,len(topologia["subnets"])):
+    for a in range(0,len(topologia["subnets"])):                # ROUTERS
         for b in range(0,len(topologia["subnets"][a]["router"])):
             CreateRouter(a,b)
             
@@ -67,6 +71,13 @@ def main():
                 a.send_packet(IPdest)
                 break       #we have our starting host , this is the one for which we should start the ARP loop
     
+
+def isInSubnet(IP_addr_layer3_device, NET_addr, mask):
+
+    temp = IP_utils.IP_to_number(mask) & IP_utils.IP_to_number(IP_addr_layer3_device)
+    if (NET_addr == IP_utils.number_to_IP(temp)):
+        return True
+    return False
 
 def HostCreator(subnet,host): 
 
