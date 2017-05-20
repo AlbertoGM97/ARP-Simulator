@@ -104,7 +104,7 @@ class iface:
             self.layer3_parent.send_packet(IP_dest)
         
     def is_one_of_your_neighbors(self, IP_search):
-        for i in self.adjacent: # Search among its ifaces objects if one has that IP
+        for i in self.adjacent: # Search among its ifaces objects if one has that MAC
             if i.IP_addr == IP_search:
                 return True
         return False
