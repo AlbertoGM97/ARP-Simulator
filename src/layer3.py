@@ -97,7 +97,7 @@ class iface:
                 break
 
     def receive_frame(self, IP_dest):
-        if IP_dest == IP_addr:
+        if IP_dest == self.IP_addr:
             print("Packet arrived to destination.")
         else:
             self.layer3_parent.send_packet(IP_dest)
