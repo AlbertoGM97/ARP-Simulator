@@ -41,7 +41,7 @@ class layer3_device:
             temp = IP_utils.IP_to_number(each_route["mask"]) & IP_utils.IP_to_number(IP_dest)
 
             if (each_route["IP_dest"] == IP_utils.number_to_IP(temp)):
-                return each_route["gateway"] # Next IP on route (If 0.0.0.0 then last IP)
+                return IP_dest#each_route["gateway"] # Next IP on route (If 0.0.0.0 then last IP)
             
             if (each_route["IP_dest"] == "default" or each_route["IP_dest"] == "0.0.0.0"):
                     return each_route["gateway"]
