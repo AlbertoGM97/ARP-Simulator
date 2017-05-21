@@ -29,6 +29,13 @@ def main():
                     interface.add_adjacent(host.ifaces[0])#Since in this simplification program, hosts only have one interface
                     host.ifaces[0].add_adjacent(interface)
                     Hosts_in_subnet.append(host)
+            for router2 in RouterList:
+                if (router != router2):
+                    for iface in router2.ifaces:
+                        if not interface.is_one_of_your_neighbors(iface.IP_addr):
+                            if(isinSubnet(interface.IP_addr,iface.IP_addr)):
+                                interface.add_adjacent(iface)#Since in this simplification program, hosts only have one interface
+                                iface.add_adjacent(interface)
             for host1 in Hosts_in_subnet:
                 for host2 in Hosts_in_subnet:
                     if (host1 != host2) and not host1.ifaces[0].is_one_of_your_neighbors(host2.ifaces[0].IP_addr):
