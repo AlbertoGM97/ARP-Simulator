@@ -48,6 +48,7 @@ class layer3_device:
             
             if (each_route["IP_dest"] == "default" or each_route["IP_dest"] == "0.0.0.0"):
                     return each_route["gateway"]
+        print("Oh,oh, next IP not found...")
         return "0"      # Not found
         
     def findIface(self, IP_next):
