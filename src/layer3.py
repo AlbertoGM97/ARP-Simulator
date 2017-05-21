@@ -44,7 +44,7 @@ class layer3_device:
             temp = IP_utils.IP_to_number(each_route["mask"]) & IP_utils.IP_to_number(IP_dest)
 
             if (each_route["IP_dest"] == IP_utils.number_to_IP(temp)):
-                return IP_dest#each_route["gateway"] # Next IP on route (If 0.0.0.0 then last IP)
+                return each_route["gateway"]#each_route["gateway"] # Next IP on route (If 0.0.0.0 then last IP)
             
             if (each_route["IP_dest"] == "default" or each_route["IP_dest"] == "0.0.0.0"):
                     return each_route["gateway"]
@@ -55,7 +55,7 @@ class layer3_device:
             #print(IP_next , "   ", i.IP_addr)
             if i.is_one_of_your_neighbors(IP_next):
                 return i
-        print("Oh,oh, interface with neighbor = "+IP_next+"not found in "+self.name)
+        print("Oh,oh, interface with neighbor = ", IP_next, "not found in ", self.name)
 
     def save_ARP_table(self, iface):
         count = 0
@@ -66,7 +66,7 @@ class layer3_device:
         if count == 0:
             self.ARP_table.append({"MAC_addr": iface.MAC_addr, "IP_addr": iface.IP_addr}) # Save it in ARP table
             print("Saved in ARP table of host " + self.name + " the entry IP = " +iface.IP_addr + " MAC = " + iface.MAC_addr + ".")
-            time.sleep(2)
+            #time.sleep(2)
 
 class iface:
 
