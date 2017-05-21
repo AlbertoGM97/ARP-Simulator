@@ -41,7 +41,7 @@ class layer3_device:
         
     def findIPnext(self, IP_dest):
         for each_route in self.routes:
-            temp = IP_utils.IP_to_number(each_route["mask"]) & IP_utils.IP_to_number(IP_dest)
+            temp = IP_utils.IP_to_number(each_route["mask"]) & IP_utils.IP_to_number(IP_dest)#Network address of IP_dest
 
             if (each_route["IP_dest"] == IP_utils.number_to_IP(temp)):
                 if(each_route["gateway"]!="0.0.0.0"):
@@ -69,7 +69,7 @@ class layer3_device:
         if count == 0:
             self.ARP_table.append({"MAC_addr": iface.MAC_addr, "IP_addr": iface.IP_addr}) # Save it in ARP table
             print("Saved in ARP table of host " + self.name + " the entry IP = " +iface.IP_addr + " MAC = " + iface.MAC_addr + ".")
-            #time.sleep(2)
+            time.sleep(2)
 
 class iface:
 
