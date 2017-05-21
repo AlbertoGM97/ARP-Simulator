@@ -69,7 +69,7 @@ class layer3_device:
         if count == 0:
             self.ARP_table.append({"MAC_addr": iface.MAC_addr, "IP_addr": iface.IP_addr}) # Save it in ARP table
             print("Saved in ARP table of host " + self.name + " the entry IP = " +iface.IP_addr + " MAC = " + iface.MAC_addr + ".")
-            #time.sleep(2)
+            time.sleep(2)
 
 class iface:
 
