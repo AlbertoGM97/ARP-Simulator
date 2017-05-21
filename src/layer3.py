@@ -44,13 +44,13 @@ class layer3_device:
             temp = IP_utils.IP_to_number(each_route["mask"]) & IP_utils.IP_to_number(IP_dest)
 
             if (each_route["IP_dest"] == IP_utils.number_to_IP(temp)):
-                if(each_route["gateway"]!="0.0.0.0"):
+                if(each_route["gateway"] != "0.0.0.0"):
                     return each_route["gateway"]#each_route["gateway"] # Next IP on route (If 0.0.0.0 then last IP)
                 else:
                     return IP_dest
             
-            #if (each_route["IP_dest"] == "default" or each_route["IP_dest"] == "0.0.0.0"):
-                    #return each_route["gateway"]
+            if (each_route["IP_dest"] == "default" or each_route["IP_dest"] == "0.0.0.0"):
+                    return each_route["gateway"]
         return "0"      # Not found
         
     def findIface(self, IP_next):
@@ -84,7 +84,6 @@ class iface:
         self.adjacent.append(new_iface)
 
     def send_ARP(self, IP_next):
-        adjcent
         for i in self.adjacent: # Search among its adjacent objects if one has that IP
             if i.receive_ARP(IP_next, self):
                 adjcent=i
