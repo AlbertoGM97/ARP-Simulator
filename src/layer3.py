@@ -15,6 +15,8 @@ class layer3_device:
         return False
 
     def send_packet(self, IP_dest):
+        if(self.is_your_IP(IP_dest)):#in case is a router and has more than one interface
+            print("Packet arrived to destination "+ IP_dest+".")
         print("Device "+ self.name +" sending packet to destination = " + IP_dest + ".")
         time.sleep(2)
         IP_next = self.findIPnext(IP_dest)            # Search in routing table for IP to send
