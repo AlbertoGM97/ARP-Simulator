@@ -48,7 +48,6 @@ class layer3_device:
             
             if (each_route["IP_dest"] == "default" or each_route["IP_dest"] == "0.0.0.0"):
                     return each_route["gateway"]
-        print("Oh,oh, next IP not found...")
         return "0"      # Not found
         
     def findIface(self, IP_next):
@@ -56,6 +55,7 @@ class layer3_device:
             #print(IP_next , "   ", i.IP_addr)
             if i.is_one_of_your_neighbors(IP_next):
                 return i
+        print("Oh,oh, interface with neighbor = "+IP_next+"not found in "+self.name)
 
     def save_ARP_table(self, iface):
         count = 0
@@ -113,6 +113,7 @@ class iface:
         
     def is_one_of_your_neighbors(self, IP_search):
         for i in self.adjacent: # Search among its ifaces objects if one has that MAC
+            print("neighbor is "+i.IP_addr)
             if i.IP_addr == IP_search:
                 return True
         return False
