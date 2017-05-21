@@ -87,7 +87,6 @@ class iface:
         for i in self.adjacent: # Search among its adjacent objects if one has that IP
             if i.receive_ARP(IP_next, self):
                 adjcent=i
-                break
         print("Received ARP response.")
         time.sleep(2)
         self.layer3_parent.save_ARP_table(adjcent)
