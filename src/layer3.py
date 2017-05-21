@@ -84,12 +84,14 @@ class iface:
         self.adjacent.append(new_iface)
 
     def send_ARP(self, IP_next):
+        adjcent
         for i in self.adjacent: # Search among its adjacent objects if one has that IP
             if i.receive_ARP(IP_next, self):
-                print("Received ARP response.")
-                time.sleep(2)
-                self.layer3_parent.save_ARP_table(i)
+                adjcent=i
                 break
+        print("Received ARP response.")
+        time.sleep(2)
+        self.layer3_parent.save_ARP_table(adjcent)
 
     def receive_ARP(self, IP, interface): # Receives interface that asks to pass to save ARP of layer3_device
         print(self.IP_addr + " receives ARP broadcast.")
@@ -116,7 +118,7 @@ class iface:
         
     def is_one_of_your_neighbors(self, IP_search):
         for i in self.adjacent: # Search among its ifaces objects if one has that MAC
-            print("neighbor is "+i.IP_addr)
+            #print("neighbor is "+i.IP_addr)
             if i.IP_addr == IP_search:
                 return True
         return False
