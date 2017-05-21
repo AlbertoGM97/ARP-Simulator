@@ -16,9 +16,9 @@ class layer3_device:
 
     def send_packet(self, IP_dest):
         if(self.is_your_IP(IP_dest)):#in case is a router and has more than one interface
-            print("Packet arrived to destination "+ IP_dest+".")
+            print("[o] Packet arrived to destination "+ IP_dest+".")
             return
-        print("Device "+ self.name +" sending packet to destination = " + IP_dest + ".")
+        print("[+] Device "+ self.name +" sending packet to destination = " + IP_dest + ".")
         time.sleep(2)
         IP_next = self.findIPnext(IP_dest)            # Search in routing table for IP to send
         if IP_next == 0:
@@ -30,10 +30,11 @@ class layer3_device:
         for i in self.ARP_table:  # Check if IP to send is in ARP table
             if i["IP_addr"] == IP_next:
                 count = count+1
+                print("[!] Address found on ARP table")
                 break
         if count == 0:
-            print("is not in ARP table. Sending ARP broadcast")
-            time.sleep(2)
+            print("[!] Is not in ARP table. Sending ARP broadcast")
+            #time.sleep(2)
             interface.send_ARP(IP_next) # Ask for the MAC of IP to send--no estoy seguro este bien puesto !!!
 
         for k in range(0, len(self.ARP_table)):
@@ -61,7 +62,7 @@ class layer3_device:
             #print(IP_next , "   ", i.IP_addr)
             if i.is_one_of_your_neighbors(IP_next):
                 return i
-        print("Oh,oh, interface with neighbor = ", IP_next, "not found in ", self.name)
+        print("[E] Oh,oh, interface with neighbor = ", IP_next, "not found in ", self.name)
 
     def save_ARP_table(self, iface):
         count = 0
@@ -71,7 +72,7 @@ class layer3_device:
                 break
         if count == 0:
             self.ARP_table.append({"MAC_addr": iface.MAC_addr, "IP_addr": iface.IP_addr}) # Save it in ARP table
-            print("Saved in ARP table of host " + self.name + " the entry IP = " +iface.IP_addr + " MAC = " + iface.MAC_addr + ".")
+            print("[S] Saved in ARP table of host " + self.name + " the entry IP = " +iface.IP_addr + " MAC = " + iface.MAC_addr + ".")
             time.sleep(2)
 
 class iface:
@@ -90,12 +91,12 @@ class iface:
         for i in self.adjacent: # Search among its adjacent objects if one has that IP
             if i.receive_ARP(IP_next, self):
                 adjcent=i
-        print("Received ARP response.")
+        print("[!] Received ARP response.")
         time.sleep(2)
         self.layer3_parent.save_ARP_table(adjcent)
 
     def receive_ARP(self, IP, interface): # Receives interface that asks to pass to save ARP of layer3_device
-        print(self.IP_addr + " receives ARP broadcast.")
+        print("[-]", self.IP_addr + " receives ARP broadcast.")
         time.sleep(2)
         if IP == self.IP_addr:
             self.layer3_parent.save_ARP_table(interface)
@@ -104,7 +105,7 @@ class iface:
             return False
 
     def send_frame(self, recvMAC, IP_dest, IP_next):
-        print(self.IP_addr + " sends to " + IP_next + " with MAC " + recvMAC)
+        print("[+]" , self.IP_addr + " sends to " + IP_next + " with MAC " + recvMAC)
         time.sleep(2)
         for i in self.adjacent: # Search among its adjacent objects if one has that IP
             if i.MAC_addr == recvMAC:
@@ -113,7 +114,7 @@ class iface:
 
     def receive_frame(self, IP_dest):
         if IP_dest == self.IP_addr:
-            print("Packet arrived to destination "+ IP_dest+".")
+            print("[o] Packet arrived to destination "+ IP_dest+".")
         else:
             self.layer3_parent.send_packet(IP_dest)
         

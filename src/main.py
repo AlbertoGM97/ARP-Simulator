@@ -42,6 +42,7 @@ def main():
                         host1.ifaces[0].add_adjacent(host2.ifaces[0]) #Since in this simplification program, hosts only have one interface
     
     # --------------- DEBUG -------------------------------
+    print("\n--------- DEBUG-------")
     print("These are the hosts")
     for each_host in HostList:
         print(" -", each_host.name, " -> ", end = "")
@@ -51,7 +52,7 @@ def main():
             
             print("  ADJACENTS: ", end = "")
             for each_adjacent in each_interface.adjacent:
-                print(each_adjacent.layer3_parent.name, end = "")
+                print(each_adjacent.layer3_parent.name, end = " ")
 
         print("")
 
@@ -64,15 +65,16 @@ def main():
             
             print("         ADJACENTS:  ", end = "")
             for each_adjacent in each_interface.adjacent:
-                print(each_adjacent.layer3_parent.name, end = ", ")
+                print(each_adjacent.layer3_parent.name, end = " ")
             print("")
-    print("")
+    print("-----------------------\n")
 
         
     #------------------------------------------------------
     while True:
-        IPorigin = input("Enter the IP of the source for the packet: ")
-        IPdest   = input("Enter the IP of the destination for the packet: ")
+        IPorigin = input("\n-> Enter the IP of the source for the packet: ")
+        IPdest   = input("-> Enter the IP of the destination for the packet: ")
+        print("")
         for a in HostList:
             if(a.is_your_IP(IPorigin)): # antes esto if(IPorigin== HostA.ifaces[0].IP_addr):
                 a.send_packet(IPdest)
@@ -119,7 +121,7 @@ def CreateRouter(subnet,router):
             break
 
     temp_routing = topologia["routing"][i]["table"]
-    print(topologia["subnets"][subnet]["router"][router]["id"] , "-----------------")
+    #print(topologia["subnets"][subnet]["router"][router]["id"] , "-----------------")
 
     if(len(RouterList)==0):
         newRouter= layer3_device(topologia["subnets"][subnet]["router"][router]["id"],[],temp_routing)
