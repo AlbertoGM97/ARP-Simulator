@@ -89,7 +89,7 @@ def isInSubnet(IP_addr_layer3_device, NET_addr, mask):
 
 def HostCreator(subnet,host): 
 
-    temp_route = [{"IP_dest": "0.0.0.0", "mask" : "0.0.0.0", "gateway": topologia["subnets"][subnet]["host"][host]["gateway"], "iface":"eth0"}]
+    temp_route = [{"IP_dest": topologia["subnets"][subnet]["NETaddr"], "mask" : topologia["subnets"][subnet]["mask"], "gateway": "0.0.0.0", "iface":"eth0"},{"IP_dest": "0.0.0.0", "mask" : "0.0.0.0", "gateway": topologia["subnets"][subnet]["host"][host]["gateway"], "iface":"eth0"}]
     newHost= layer3_device(topologia["subnets"][subnet]["host"][host]["id"],CreateInterfaces("host",subnet,host,0),temp_route)
     newHost.ifaces[-1].layer3_parent=newHost
     HostList.append(newHost)
