@@ -46,7 +46,7 @@ class layer3_device:
             if (each_route["IP_dest"] == IP_utils.number_to_IP(temp)):
                 return each_route["gateway"]#each_route["gateway"] # Next IP on route (If 0.0.0.0 then last IP)
             
-            if (each_route["IP_dest"] == "default" or each_route["IP_dest"] == "0.0.0.0"):
+            #if (each_route["IP_dest"] == "default" or each_route["IP_dest"] == "0.0.0.0"):
                     return each_route["gateway"]
         return "0"      # Not found
         
