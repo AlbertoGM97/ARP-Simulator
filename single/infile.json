@@ -1,0 +1,150 @@
+{
+  "_comment": "Pegad el JSON en esta web: http://www.cleancss.com/json-editor/",
+
+  "subnets": [
+    {
+      "id":       "subnet_A",
+      "NETaddr":  "192.168.1.0",
+      "mask":     "255.255.255.0",
+
+      "host": [
+        {
+          "id":       "A",
+          "gateway":  "192.168.1.1",
+          "IPaddr":   "192.168.1.2",
+          "MACaddr":  "23:22:11:ff:33:33"
+        },
+        {
+          "id":       "B",
+          "gateway":  "192.168.1.1",
+          "IPaddr":   "192.168.1.3",
+          "MACaddr":  "43:82:21:aa:bb:11"
+        },
+        {
+          "id":       "C",
+          "gateway":  "192.168.1.1",
+          "IPaddr":   "192.168.1.4",
+          "MACaddr":  "44:34:aa:22:dd:99"
+        }
+      ],
+  
+      "router": [
+        {
+        "id":         "R1",
+          "iface":    "eth1",
+          "IPaddr":   "192.168.1.1",
+          "MACaddr":  "23:45:33:11:5d:ff"
+        }
+      ]
+    },
+  
+    {
+      "id":       "subnet_B",
+      "NETaddr":  "10.0.0.0",
+      "mask":     "255.255.255.0",
+  
+      "host": [
+        {
+          "id":       "D",
+          "gateway":  "10.0.0.1",
+          "IPaddr":   "10.0.0.2",
+          "MACaddr":  "af:82:df:34:66:19"
+        }
+      ],
+      
+      "router": [
+        {
+          "id":       "R1",
+          "iface":    "eth2",
+          "IPaddr":   "10.0.0.1",
+          "MACaddr":  "fd:34:89:23:12:aa"
+        },
+        {
+          "id":       "R2",
+          "iface":    "eth1",
+          "IPaddr":   "10.0.0.3",
+          "MACaddr":  "34:23:11:90:23:ff"
+        }
+      ]
+    },
+  
+    {
+      "id":       "subnet_C",
+      "NETaddr":  "17.0.0.0",
+      "mask":     "255.255.255.0",
+  
+      "host": [
+        {
+          "id":       "E",
+          "gateway":  "17.0.0.1",
+          "IPaddr":   "17.0.0.2",
+          "MACaddr":  "dd:32:ad:ff:11:83"
+        },
+        {
+          "id":       "F",
+          "gateway":  "17.0.0.1",
+          "IPaddr":   "17.0.0.3",
+          "MACaddr":  "32:98:d4:34:63:12"
+        }
+      ],
+      
+      "router": [
+        {
+          "id":       "R2",
+          "iface":    "eth2",
+          "IPaddr":   "17.0.0.1",
+          "MACaddr":  "34:23:ff:77:32:43"
+        }
+      ]
+    }
+  ],
+  
+  "routing": [
+    {
+      "id": "R1",
+      "table": [
+        {
+          "IP_dest":   "192.168.1.0",
+          "mask":     "255.255.255.0",
+          "gateway":  "0.0.0.0",
+          "iface":    "eth1"
+        },
+        {
+          "IP_dest":   "10.0.0.0",
+          "mask":     "255.255.255.0",
+          "gateway":  "0.0.0.0",
+          "iface":    "eth2"
+        },
+        {
+          "IP_dest":   "default",
+          "mask":     "0.0.0.0",
+          "gateway":  "10.0.0.3",
+          "iface":    "eth2"
+        }
+      ]
+    },
+    {
+      "id": "R2",
+      "table": [
+        {
+          "IP_dest":   "17.0.0.0",
+          "mask":     "255.255.255.0",
+          "gateway":  "0.0.0.0",
+          "iface":    "eth2"
+        },
+        {
+          "IP_dest":   "10.0.0.0",
+          "mask":     "255.255.255.0",
+          "gateway":  "0.0.0.0",
+          "iface":    "eth1"
+        },
+        {
+          "IP_dest":   "default",
+          "mask":     "0.0.0.0",
+          "gateway":  "10.0.0.1",
+          "iface":    "eth2"
+        }
+      ]
+    }
+  ]
+}
